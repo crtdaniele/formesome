@@ -1,0 +1,12 @@
+{
+  "name": "formesome-repo",
+  "private": true,
+  "scripts": {
+    "bootstrap": "lerna bootstrap --hoist",
+    "build": "lerna run build",
+    "start:demo": "cd apps/demo && npm run start"
+  },
+  "devDependencies": {
+    "lerna": "^4.0.0"
+  }
+}
