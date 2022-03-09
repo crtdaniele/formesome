@@ -1,30 +1,30 @@
-import { useFormesome, Form, Status, Validations } from "formesome";
+import { useFormesome, Form, Status, Validations } from 'formesome';
 
 export const loginForm: Form = {
   email: {
     required: true,
     validation: Validations.Email,
-    value: "",
-    status: Status.DIGIT,
+    value: '',
+    status: Status.TYPING,
   },
   password: {
     required: false,
-    value: "",
-    status: Status.DIGIT,
+    value: '',
+    status: Status.TYPING,
   },
 };
 
-function App() {
+const App: React.FC = () => {
   const { onChangeForm, form, isValidRequiredInputs, isValidAllInputs } =
-    useFormesome("loginForm", loginForm);
-  console.log(form);
+    useFormesome('loginForm', loginForm);
+
   return (
     <div>
       <form>
         <p>
           <input
-            type='text'
-            name={"email"}
+            type="text"
+            name="email"
             defaultValue={loginForm.email.value}
             onBlur={(e) => onChangeForm(e)}
           />
@@ -32,21 +32,33 @@ function App() {
         </p>
         <p>
           <input
-            type='text'
-            name='password'
+            type="text"
+            name="password"
             onChange={(e) => onChangeForm(e)}
           />
           {form?.password?.status === Status.ERROR && <>Errore</>}
         </p>
         <hr />
         {}
-        <h3>Email: {form?.email?.value}</h3>
-        <h3>Password: {form?.password?.value}</h3>
-        <h3>isValidRequiredInputs: {isValidRequiredInputs ? "OK" : "NO"}</h3>
-        <h3>isValidAllInputs: {isValidAllInputs ? "OK" : "NO"}</h3>
+        <h3>
+          Email:
+          {form?.email?.value}
+        </h3>
+        <h3>
+          Password:
+          {form?.password?.value}
+        </h3>
+        <h3>
+          isValidRequiredInputs:
+          {isValidRequiredInputs ? 'OK' : 'NO'}
+        </h3>
+        <h3>
+          isValidAllInputs:
+          {isValidAllInputs ? 'OK' : 'NO'}
+        </h3>
       </form>
     </div>
   );
-}
+};
 
 export default App;
