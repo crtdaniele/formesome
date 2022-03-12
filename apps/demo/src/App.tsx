@@ -2,12 +2,14 @@ import { useFormesome, Form, Status, Validations } from 'formesome';
 
 export const loginForm: Form = {
   email: {
+    inputName: 'email',
     required: true,
     validation: Validations.Email,
     value: '',
     status: Status.TYPING,
   },
   password: {
+    inputName: 'password',
     required: false,
     value: '',
     status: Status.TYPING,
@@ -15,8 +17,15 @@ export const loginForm: Form = {
 };
 
 const App: React.FC = () => {
-  const { onChangeForm, form, isValidRequiredInputs, isValidAllInputs } =
-    useFormesome('loginForm', loginForm);
+  const {
+    onChangeForm,
+    form,
+    formRequiredValue,
+    isValidRequiredInputs,
+    isValidAllInputs,
+  } = useFormesome('loginForm', loginForm);
+
+  console.log(formRequiredValue);
 
   return (
     <div>
@@ -25,7 +34,7 @@ const App: React.FC = () => {
           <input
             type="text"
             name="email"
-            defaultValue={loginForm.email.value}
+            defaultValue={form?.email?.value}
             onBlur={(e) => onChangeForm(e)}
           />
           {form?.email?.status === Status.ERROR && <>Errore</>}
@@ -34,6 +43,7 @@ const App: React.FC = () => {
           <input
             type="text"
             name="password"
+            defaultValue={form?.password?.value}
             onChange={(e) => onChangeForm(e)}
           />
           {form?.password?.status === Status.ERROR && <>Errore</>}

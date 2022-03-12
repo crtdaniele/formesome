@@ -1,9 +1,6 @@
 node_modules
 .vscode
 package-lock.json
-packages/**/node_modules
-packages/**/package-lock.json
-packages/**/dist
-apps/**/node_modules
-apps/**/package-lock.json
-apps/**/build
+dist
+build
+packages/formesome
