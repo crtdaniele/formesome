@@ -1,6 +1,6 @@
 {
   "name": "formesome-repo",
-  "private": true,
+  "private": false,
   "scripts": {
     "bootstrap": "lerna bootstrap --hoist",
     "build": "lerna run build",
