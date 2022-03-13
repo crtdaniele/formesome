@@ -1,0 +1,92 @@
+0 silly argv {
+0 silly argv   _: [ 'version' ],
+0 silly argv   'conventional-commits': true,
+0 silly argv   conventionalCommits: true,
+0 silly argv   lernaVersion: '4.0.0',
+0 silly argv   '$0': 'C:\\Users\\danie\\AppData\\Roaming\\npm\\node_modules\\lerna\\cli.js',
+0 silly argv   bump: 'minor'
+0 silly argv }
+1 notice cli v4.0.0
+2 verbose rootPath D:\lavoro\sviluppo\github\formesome-repo
+3 info current version 0.0.1-alpha.0
+4 silly isAnythingCommitted
+5 verbose isAnythingCommitted 1
+6 silly getCurrentBranch
+7 verbose currentBranch master
+8 silly remoteBranchExists
+9 silly isBehindUpstream
+10 silly isBehindUpstream master is behind origin/master by 0 commit(s) and ahead by 0
+11 silly hasTags
+12 verbose hasTags false
+13 info Assuming all packages changed
+14 verbose updated demo
+15 verbose updated formesome
+16 verbose git-describe undefined => "2f84b52"
+17 silly git-describe parsed => {"refCount":"7","sha":"2f84b52","isDirty":false}
+18 info execute Skipping releases
+19 silly lifecycle No script for "preversion" in "formesome-repo", continuing
+20 silly lifecycle No script for "preversion" in "demo", continuing
+21 silly lifecycle No script for "preversion" in "formesome", continuing
+22 silly lifecycle No script for "version" in "formesome", continuing
+23 silly fixed for formesome at D:\lavoro\sviluppo\github\formesome-repo\packages\formesome
+24 verbose getChangelogConfig using preset "conventional-changelog-angular"
+25 silly npa Result {
+25 silly npa   type: 'tag',
+25 silly npa   registry: true,
+25 silly npa   where: undefined,
+25 silly npa   raw: 'conventional-changelog-angular',
+25 silly npa   name: 'conventional-changelog-angular',
+25 silly npa   escapedName: 'conventional-changelog-angular',
+25 silly npa   scope: undefined,
+25 silly npa   rawSpec: '',
+25 silly npa   saveSpec: null,
+25 silly npa   fetchSpec: 'latest',
+25 silly npa   gitRange: undefined,
+25 silly npa   gitCommittish: undefined,
+25 silly npa   hosted: undefined
+25 silly npa }
+26 verbose getChangelogConfig Attempting to resolve preset "conventional-changelog-angular"
+27 info getChangelogConfig Successfully resolved preset "conventional-changelog-angular"
+28 silly lifecycle No script for "version" in "demo", continuing
+29 silly fixed for demo at D:\lavoro\sviluppo\github\formesome-repo\apps\demo
+30 silly fixed writing new entry: "# 0.1.0 (2022-03-13)\n\n\n### Bug Fixes\n\n* packages formesome ([97418d2](https://github.com/crtdaniele/formesome-repo/commit/97418d27285686a4bfce53e2a4b200ea7df6a35a))\n* version ([af2bd51](https://github.com/crtdaniele/formesome-repo/commit/af2bd51a472d78e51c805c6eb69d09f793e75077))\n\n\n\n"
+31 silly fixed writing new entry: "# 0.1.0 (2022-03-13)\n\n\n### Bug Fixes\n\n* packages formesome ([97418d2](https://github.com/crtdaniele/formesome/commit/97418d27285686a4bfce53e2a4b200ea7df6a35a))\n* version ([af2bd51](https://github.com/crtdaniele/formesome/commit/af2bd51a472d78e51c805c6eb69d09f793e75077))\n\n\n### Features\n\n* test and package ([f338913](https://github.com/crtdaniele/formesome/commit/f3389134a340741fbcdde92fc28f265ec4ee8de9))\n\n\n\n"
+32 verbose fixed wrote D:\lavoro\sviluppo\github\formesome-repo\apps\demo\CHANGELOG.md
+33 verbose fixed wrote D:\lavoro\sviluppo\github\formesome-repo\packages\formesome\CHANGELOG.md
+34 silly root for formesome-repo at D:\lavoro\sviluppo\github\formesome-repo
+35 silly root writing new entry: "# 0.1.0 (2022-03-13)\n\n\n### Bug Fixes\n\n* package private repo ([2f84b52](https://github.com/crtdaniele/formesome-repo/commit/2f84b52f573baf8f6f0d4ac3a784eb77566c8c20))\n* packages formesome ([97418d2](https://github.com/crtdaniele/formesome-repo/commit/97418d27285686a4bfce53e2a4b200ea7df6a35a))\n* version ([af2bd51](https://github.com/crtdaniele/formesome-repo/commit/af2bd51a472d78e51c805c6eb69d09f793e75077))\n\n\n### Features\n\n* test and package ([f338913](https://github.com/crtdaniele/formesome-repo/commit/f3389134a340741fbcdde92fc28f265ec4ee8de9))\n\n\n\n"
+36 verbose root wrote D:\lavoro\sviluppo\github\formesome-repo\CHANGELOG.md
+37 silly lifecycle No script for "version" in "formesome-repo", continuing
+38 silly gitAdd [
+38 silly gitAdd   'packages/formesome/package.json',
+38 silly gitAdd   'packages/formesome/package-lock.json',
+38 silly gitAdd   'apps/demo/package.json',
+38 silly gitAdd   'apps/demo/package-lock.json',
+38 silly gitAdd   'apps/demo/CHANGELOG.md',
+38 silly gitAdd   'packages/formesome/CHANGELOG.md',
+38 silly gitAdd   'CHANGELOG.md',
+38 silly gitAdd   'lerna.json'
+38 silly gitAdd ]
+39 error Error: Command failed with exit code 1: git add -- packages/formesome/package.json packages/formesome/package-lock.json apps/demo/package.json apps/demo/package-lock.json apps/demo/CHANGELOG.md packages/formesome/CHANGELOG.md CHANGELOG.md lerna.json
+39 error warning: LF will be replaced by CRLF in CHANGELOG.md.
+39 error The file will have its original line endings in your working directory
+39 error warning: LF will be replaced by CRLF in apps/demo/CHANGELOG.md.
+39 error The file will have its original line endings in your working directory
+39 error warning: LF will be replaced by CRLF in apps/demo/package.json.
+39 error The file will have its original line endings in your working directory
+39 error warning: LF will be replaced by CRLF in lerna.json.
+39 error The file will have its original line endings in your working directory
+39 error warning: LF will be replaced by CRLF in packages/formesome/CHANGELOG.md.
+39 error The file will have its original line endings in your working directory
+39 error warning: LF will be replaced by CRLF in packages/formesome/package.json.
+39 error The file will have its original line endings in your working directory
+39 error The following paths are ignored by one of your .gitignore files:
+39 error apps/demo/package-lock.json
+39 error packages/formesome/package-lock.json
+39 error hint: Use -f if you really want to add them.
+39 error hint: Turn this message off by running
+39 error hint: "git config advice.addIgnoredFile false"
+39 error     at makeError (D:\lavoro\sviluppo\github\formesome-repo\node_modules\execa\lib\error.js:60:11)
+39 error     at handlePromise (D:\lavoro\sviluppo\github\formesome-repo\node_modules\execa\index.js:118:26)
+39 error     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+39 error     at async Promise.all (index 0)
