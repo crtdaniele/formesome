@@ -8,7 +8,7 @@
   "types": "dist/index",
   "typings": "dist/index",
   "repository": {
-    "url": "https://github.com/crtdaniele/formesome"
+    "url": "https://github.com/crtdaniele/formesome-repo"
   },
   "keywords": [
     "form",

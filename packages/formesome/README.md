@@ -24,14 +24,14 @@ To build this project run
 - ~~Install standard-version~~
 - ~~Install standard-version~~
 - ~~Install commitlint~~
-- Create yaml to publish in npm
-- Create yaml to version the project
 - ~~useFormesome: return a isValid (boolean)~~
-- useFormesome: return a clean form with only the required inputs
+- ~~useFormesome: return a clean form with only the required inputs~~
 - useFormesome: return a clean form with all inputs
 - Types: add new validations
 - Create the documentation (docusaurus)
 - Insert augumentation for the name of the form
+- Create yaml to publish in npm
+- Create yaml to version the project
 - Add support for Redux
 
 ## Authors
