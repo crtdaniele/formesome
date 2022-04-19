@@ -25,8 +25,6 @@ const App: React.FC = () => {
     isValidAllInputs,
   } = useFormesome('loginForm', loginForm);
 
-  console.log(formRequiredValue);
-
   return (
     <div>
       <form>

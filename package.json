@@ -2,6 +2,7 @@
   "name": "formesome-repo",
   "private": false,
   "scripts": {
+    "clean": "lerna clean --yes",
     "bootstrap": "lerna bootstrap --hoist",
     "build": "lerna run build",
     "start:demo": "cd apps/demo && npm run start",
