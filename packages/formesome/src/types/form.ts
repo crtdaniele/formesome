@@ -41,13 +41,14 @@ export type FormNotRequired = {
 
 export type ReturnHook = {
   form: Form;
-  formRequiredValue: CleanData;
-  onChangeForm: (e: unknown) => void;
+  formValue: CleanData;
+  formValueRequired: CleanData;
   isValidRequiredInputs: boolean;
   isValidAllInputs: boolean;
+  onChangeForm: (e: unknown) => void;
 };
 
-export type FormRequiredData = {
+export type FormData = {
   [key: string]: {
     value: InputValue;
   };
@@ -55,9 +56,10 @@ export type FormRequiredData = {
 
 export type FormContext = {
   form: Form;
+  formValue?: FormData;
+  formValueRequired?: FormData;
   isValidRequiredInputs: boolean;
   isValidAllInputs: boolean;
-  requiredFormData?: FormRequiredData;
 };
 
 export type ImmutableFormContext = Immutable<FormContext>;

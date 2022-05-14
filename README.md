@@ -8,11 +8,10 @@ Coming soon.
 
 ## Build project
 
-To build this project run
+To run and build this project launch:
 
 ```bash
-  npm i
-  npm run build
+  npm run install
 ```
 
 ## Tech Stack
@@ -26,8 +25,12 @@ To build this project run
 - ~~Install commitlint~~
 - ~~useFormesome: return a isValid (boolean)~~
 - ~~useFormesome: return a clean form with only the required inputs~~
-- useFormesome: return a clean form with all inputs
+- ~~useFormesome: return a clean form with all inputs~~
+- Add ViteJS at the demo app
+- Add UX at the demo app
 - Types: add new validations
+- Add coverage of hook useFormesome
+- useFormesome: remove return "form" and add "errors"
 - Create the documentation (docusaurus)
 - Insert augumentation for the name of the form
 - Create yaml to publish in npm
