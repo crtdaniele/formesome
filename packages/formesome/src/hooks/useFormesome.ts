@@ -14,6 +14,11 @@ import { extractData } from '../utils/extractData';
  * Hook to create a new form and validate automatically your inputs
  * @param name name of the form
  * @param initialForm the config of your form
+ * @returns {form} the all inputs and config of the form
+ * @returns {formRequiredValue} the object with the all required value
+ * @returns {isValidRequiredInputs} boolean that return if all required inputs are valid
+ * @returns {isValidAllInputs} boolean that return if all inputs are valid
+ * @returns {onChangeForm} the method to use in the input field
  */
 const useFormesome = (name: string, initialForm: Form): ReturnHook => {
   const [data, setData] = useState<ImmutableFormContext>();
@@ -24,7 +29,8 @@ const useFormesome = (name: string, initialForm: Form): ReturnHook => {
   useEffect(() => {
     setData({
       form: initialForm,
-      requiredFormData: {},
+      formValue: {},
+      formValueRequired: {},
       isValidRequiredInputs: false,
       isValidAllInputs: false,
     });
@@ -40,9 +46,14 @@ const useFormesome = (name: string, initialForm: Form): ReturnHook => {
     return formInputs ? isValidAllInputsFn(formInputs) : false;
   }, [data?.form]);
 
-  const formRequiredValue = useMemo(() => {
+  const formValue = useMemo(() => {
     const formInputs = data?.form;
-    return formInputs ? extractData(formInputs) : {};
+    return formInputs ? extractData(formInputs, true) : {};
+  }, [data?.form]);
+
+  const formValueRequired = useMemo(() => {
+    const formInputs = data?.form;
+    return formInputs ? extractData(formInputs, false) : {};
   }, [data?.form]);
 
   const handleSetForm = useCallback(
@@ -85,11 +96,12 @@ const useFormesome = (name: string, initialForm: Form): ReturnHook => {
   );
 
   return {
-    onChangeForm,
     form: (data && data.form) || {},
-    formRequiredValue,
+    formValue,
+    formValueRequired,
     isValidRequiredInputs,
     isValidAllInputs,
+    onChangeForm,
   };
 };
 

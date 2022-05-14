@@ -10,7 +10,8 @@ export const loginForm: Form = {
   },
   password: {
     inputName: 'password',
-    required: false,
+    required: true,
+    validation: Validations.NotEmpty,
     value: '',
     status: Status.TYPING,
   },
@@ -20,10 +21,15 @@ const App: React.FC = () => {
   const {
     onChangeForm,
     form,
-    formRequiredValue,
+    formValue,
+    formValueRequired,
     isValidRequiredInputs,
     isValidAllInputs,
   } = useFormesome('loginForm', loginForm);
+
+  console.log(form);
+  console.log(formValue);
+  console.log(formValueRequired);
 
   return (
     <div>
