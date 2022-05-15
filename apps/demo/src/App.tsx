@@ -22,18 +22,14 @@ export const loginForm: Form<FormInput> = {
 const App: React.FC = () => {
   const {
     onChangeForm,
-    form,
     formValue,
     formValueRequired,
     isValidRequiredInputs,
     isValidAllInputs,
-  } = useFormesome('loginForm', loginForm);
+  } = useFormesome('loginForm', loginForm, true);
 
-  console.log(form);
   console.log(formValue);
   console.log(formValueRequired);
-
-  form.email.value = 'prova'
 
   return (
     <div>
@@ -42,29 +38,27 @@ const App: React.FC = () => {
           <input
             type="text"
             name="email"
-            defaultValue={form?.email?.value}
+            defaultValue={formValue.email}
             onBlur={(e) => onChangeForm(e)}
           />
-          {form?.email?.status === Status.ERROR && <>Errore</>}
         </p>
         <p>
           <input
             type="text"
             name="password"
-            defaultValue={form?.password?.value}
+            defaultValue={formValue.password}
             onChange={(e) => onChangeForm(e)}
           />
-          {form.password.status === Status.ERROR && <>Errore</>}
         </p>
         <hr />
         {}
         <h3>
           Email:
-          {form.email.value}
+          {formValue.email}
         </h3>
         <h3>
           Password:
-          {form.password.value}
+          {formValue.password}
         </h3>
         <h3>
           isValidRequiredInputs:

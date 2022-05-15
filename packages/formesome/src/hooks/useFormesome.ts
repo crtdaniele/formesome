@@ -15,13 +15,18 @@ import { extractData } from '../utils/extractData';
  * Hook to create a new form and validate automatically your inputs
  * @param name name of the form
  * @param initialForm the config of your form
- * @returns {form} the all inputs and config of the form
+ * @param debug true to active the debug mode
+ * @returns {formValue} the object with the all inputs
  * @returns {formRequiredValue} the object with the all required value
  * @returns {isValidRequiredInputs} boolean that return if all required inputs are valid
  * @returns {isValidAllInputs} boolean that return if all inputs are valid
  * @returns {onChangeForm} the method to use in the input field
  */
-const useFormesome = <T extends FormStandard>(name: string, initialForm: Form<T>): ReturnHook<T> => {
+const useFormesome = <T extends FormStandard>(
+  name: string,
+  initialForm: Form<T>,
+  debug: boolean = false,
+): ReturnHook<T> => {
   const [data, setData] = useState<FormContext<T>>({
     form: initialForm,
     formValue: {},
@@ -44,53 +49,48 @@ const useFormesome = <T extends FormStandard>(name: string, initialForm: Form<T>
   }, [initialForm, name]);
 
   const isValidRequiredInputs = useMemo((): boolean => {
-    const formInputs = data?.form;
+    const formInputs = data.form;
     return formInputs ? isValidRequiredInputsFn<T>(formInputs) : false;
-  }, [data?.form]);
+  }, [data.form]);
 
   const isValidAllInputs = useMemo((): boolean => {
-    const formInputs = data?.form;
+    const formInputs = data.form;
     return formInputs ? isValidAllInputsFn<T>(formInputs) : false;
-  }, [data?.form]);
+  }, [data.form]);
 
   const formValue = useMemo(() => {
-    const formInputs = data?.form;
-    return formInputs ? extractData<T>(formInputs, true) : {} as CleanData<T>;
-  }, [data?.form]);
+    const formInputs = data.form;
+    return formInputs ? extractData<T>(formInputs, true) : ({} as CleanData<T>);
+  }, [data.form]);
 
   const formValueRequired = useMemo(() => {
-    const formInputs = data?.form;
-    return formInputs ? extractData<T>(formInputs, false) : {} as CleanData<T>;
-  }, [data?.form]);
+    const formInputs = data.form;
+    return formInputs ? extractData<T>(formInputs, false) : ({} as CleanData<T>);
+  }, [data.form]);
 
   const handleSetForm = useCallback(
-    (
-      form: Form<T>,
-      inputName,
-      inputValue: InputValue,
-      status: Status
-    ) => {
+    (form: Form<T>, inputName, inputValue: InputValue, status: Status) => {
       const nextForm = {
         ...form,
         [inputName]: {
           ...form[inputName],
           value: inputValue,
-          status: status
-        } 
+          status: status,
+        },
       };
       setData({
         form: nextForm,
-        formValue: data?.formValue,
-        formValueRequired: data?.formValueRequired,
-        isValidRequiredInputs: data?.isValidAllInputs || false,
-        isValidAllInputs: data?.isValidAllInputs || false,
+        formValue: data.formValue,
+        formValueRequired: data.formValueRequired,
+        isValidRequiredInputs: data.isValidAllInputs || false,
+        isValidAllInputs: data.isValidAllInputs || false,
       });
     },
-    []
+    [],
   );
 
   const onChangeForm = useCallback(
-    (e) => {
+    e => {
       const inputValue = e.target.value;
       const inputName = e.target.name;
 
@@ -109,11 +109,19 @@ const useFormesome = <T extends FormStandard>(name: string, initialForm: Form<T>
         }
       }
     },
-    [data, handleSetForm]
+    [data, handleSetForm],
   );
 
+  /**
+   * Debug method
+   */
+  useEffect(() => {
+    if (debug) {
+      console.log(data.form);
+    }
+  }, [debug, data.form]);
+
   return {
-    form: (data && data.form),
     formValue: formValue,
     formValueRequired: formValueRequired,
     isValidRequiredInputs,

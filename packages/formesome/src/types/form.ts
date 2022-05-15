@@ -1,4 +1,3 @@
-import { Immutable } from 'immer';
 import { CleanData } from './cleanData';
 import { Validations } from './validations';
 
@@ -27,7 +26,7 @@ export type OptionsNotRequired = {
   status: Status;
 };
 
-export type FormStandard = {[key: string]: OptionsRequired | OptionsNotRequired;}
+export type FormStandard = { [key: string]: OptionsRequired | OptionsNotRequired };
 
 export type Form<T extends FormStandard> = {
   [Property in keyof T]: OptionsRequired | OptionsNotRequired;
@@ -42,8 +41,7 @@ export type FormNotRequired<T extends FormStandard> = {
 };
 
 export type ReturnHook<T extends FormStandard> = {
-  readonly form: Form<T>;
-  formValue: Readonly<CleanData<T>>;
+  readonly formValue: Readonly<CleanData<T>>;
   readonly formValueRequired: CleanData<T>;
   readonly isValidRequiredInputs: boolean;
   readonly isValidAllInputs: boolean;

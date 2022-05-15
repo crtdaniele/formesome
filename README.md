@@ -1,6 +1,6 @@
 # Formesome
 
-A immutable library to manage easier your form
+A library to manage easier your form
 
 ## Documentation
 
@@ -8,10 +8,11 @@ Coming soon.
 
 ## Build project
 
-To run and build this project launch:
+To build this project run
 
 ```bash
-  npm run install
+  npm i
+  npm run build
 ```
 
 ## Tech Stack
@@ -26,11 +27,10 @@ To run and build this project launch:
 - ~~useFormesome: return a isValid (boolean)~~
 - ~~useFormesome: return a clean form with only the required inputs~~
 - ~~useFormesome: return a clean form with all inputs~~
-- Add ViteJS at the demo app
-- Add UX at the demo app
+- ~~Add the debug mode~~
+- useFormesome: add reset method
+- useFormesome: return an object with the errors
 - Types: add new validations
-- Add coverage of hook useFormesome
-- useFormesome: remove return "form" and add "errors"
 - Create the documentation (docusaurus)
 - Insert augumentation for the name of the form
 - Create yaml to publish in npm
