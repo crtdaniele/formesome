@@ -1,6 +1,8 @@
-import { useFormesome, Form, Status, Validations } from 'formesome';
+import { useFormesome, Form, Status, Validations, OptionsRequired } from 'formesome';
 
-export const loginForm: Form = {
+type FormInput = {email: OptionsRequired} & {password: OptionsRequired}
+
+export const loginForm: Form<FormInput> = {
   email: {
     inputName: 'email',
     required: true,
@@ -31,6 +33,8 @@ const App: React.FC = () => {
   console.log(formValue);
   console.log(formValueRequired);
 
+  form.email.value = 'prova'
+
   return (
     <div>
       <form>
@@ -50,17 +54,17 @@ const App: React.FC = () => {
             defaultValue={form?.password?.value}
             onChange={(e) => onChangeForm(e)}
           />
-          {form?.password?.status === Status.ERROR && <>Errore</>}
+          {form.password.status === Status.ERROR && <>Errore</>}
         </p>
         <hr />
         {}
         <h3>
           Email:
-          {form?.email?.value}
+          {form.email.value}
         </h3>
         <h3>
           Password:
-          {form?.password?.value}
+          {form.password.value}
         </h3>
         <h3>
           isValidRequiredInputs:

@@ -1,8 +1,9 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { produce } from 'immer';
 import {
+  CleanData,
   Form,
-  ImmutableFormContext,
+  FormContext,
+  FormStandard,
   InputValue,
   ReturnHook,
   Status,
@@ -20,8 +21,14 @@ import { extractData } from '../utils/extractData';
  * @returns {isValidAllInputs} boolean that return if all inputs are valid
  * @returns {onChangeForm} the method to use in the input field
  */
-const useFormesome = (name: string, initialForm: Form): ReturnHook => {
-  const [data, setData] = useState<ImmutableFormContext>();
+const useFormesome = <T extends FormStandard>(name: string, initialForm: Form<T>): ReturnHook<T> => {
+  const [data, setData] = useState<FormContext<T>>({
+    form: initialForm,
+    formValue: {},
+    formValueRequired: {},
+    isValidRequiredInputs: false,
+    isValidAllInputs: false,
+  });
 
   /**
    * Set the initial form in data variable
@@ -38,36 +45,46 @@ const useFormesome = (name: string, initialForm: Form): ReturnHook => {
 
   const isValidRequiredInputs = useMemo((): boolean => {
     const formInputs = data?.form;
-    return formInputs ? isValidRequiredInputsFn(formInputs) : false;
+    return formInputs ? isValidRequiredInputsFn<T>(formInputs) : false;
   }, [data?.form]);
 
   const isValidAllInputs = useMemo((): boolean => {
     const formInputs = data?.form;
-    return formInputs ? isValidAllInputsFn(formInputs) : false;
+    return formInputs ? isValidAllInputsFn<T>(formInputs) : false;
   }, [data?.form]);
 
   const formValue = useMemo(() => {
     const formInputs = data?.form;
-    return formInputs ? extractData(formInputs, true) : {};
+    return formInputs ? extractData<T>(formInputs, true) : {} as CleanData<T>;
   }, [data?.form]);
 
   const formValueRequired = useMemo(() => {
     const formInputs = data?.form;
-    return formInputs ? extractData(formInputs, false) : {};
+    return formInputs ? extractData<T>(formInputs, false) : {} as CleanData<T>;
   }, [data?.form]);
 
   const handleSetForm = useCallback(
     (
-      form: ImmutableFormContext,
+      form: Form<T>,
       inputName,
       inputValue: InputValue,
       status: Status
     ) => {
-      const nextState = produce<ImmutableFormContext>(form, (draftForm) => {
-        draftForm.form[inputName].value = inputValue;
-        draftForm.form[inputName].status = status;
+      const nextForm = {
+        ...form,
+        [inputName]: {
+          ...form[inputName],
+          value: inputValue,
+          status: status
+        } 
+      };
+      setData({
+        form: nextForm,
+        formValue: data?.formValue,
+        formValueRequired: data?.formValueRequired,
+        isValidRequiredInputs: data?.isValidAllInputs || false,
+        isValidAllInputs: data?.isValidAllInputs || false,
       });
-      setData(nextState);
     },
     []
   );
@@ -83,12 +100,12 @@ const useFormesome = (name: string, initialForm: Form): ReturnHook => {
           const regex = new RegExp(validation || '');
 
           if (regex.test(inputValue)) {
-            handleSetForm(data, inputName, inputValue, Status.VALID);
+            handleSetForm(data.form, inputName, inputValue, Status.VALID);
           } else {
-            handleSetForm(data, inputName, inputValue, Status.ERROR);
+            handleSetForm(data.form, inputName, inputValue, Status.ERROR);
           }
         } else {
-          handleSetForm(data, inputName, inputValue, Status.VALID);
+          handleSetForm(data.form, inputName, inputValue, Status.VALID);
         }
       }
     },
@@ -96,9 +113,9 @@ const useFormesome = (name: string, initialForm: Form): ReturnHook => {
   );
 
   return {
-    form: (data && data.form) || {},
-    formValue,
-    formValueRequired,
+    form: (data && data.form),
+    formValue: formValue,
+    formValueRequired: formValueRequired,
     isValidRequiredInputs,
     isValidAllInputs,
     onChangeForm,

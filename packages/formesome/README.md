@@ -1,6 +1,6 @@
 # Formesome
 
-A immutable library to manage easier your form
+A library to manage easier your form
 
 ## Documentation
 
@@ -26,7 +26,9 @@ To build this project run
 - ~~Install commitlint~~
 - ~~useFormesome: return a isValid (boolean)~~
 - ~~useFormesome: return a clean form with only the required inputs~~
-- useFormesome: return a clean form with all inputs
+- ~~useFormesome: return a clean form with all inputs~~
+- Add the debug mode
+- useFormesome: return an object with the errors
 - Types: add new validations
 - Create the documentation (docusaurus)
 - Insert augumentation for the name of the form

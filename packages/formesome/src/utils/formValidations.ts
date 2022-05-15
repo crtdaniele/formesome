@@ -1,5 +1,6 @@
 import {
-  ImmutableForm,
+  Form,
+  FormStandard,
   OptionsNotRequired,
   OptionsRequired,
   Status,
@@ -9,7 +10,7 @@ export const isAllInputsValid = (
   input: OptionsRequired | OptionsNotRequired
 ): boolean => input.status === Status.VALID;
 
-export function isValidRequiredInputsFn(form: ImmutableForm): boolean {
+export function isValidRequiredInputsFn<T extends FormStandard>(form: Form<T>): boolean {
   return Object.values(form)
     .filter(
       (input: OptionsRequired | OptionsNotRequired) => input.required === true
@@ -17,6 +18,6 @@ export function isValidRequiredInputsFn(form: ImmutableForm): boolean {
     .every(isAllInputsValid);
 }
 
-export function isValidAllInputsFn(form: ImmutableForm): boolean {
+export function isValidAllInputsFn<T extends FormStandard>(form: Form<T>): boolean {
   return Object.values(form).every(isAllInputsValid);
 }

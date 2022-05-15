@@ -27,24 +27,26 @@ export type OptionsNotRequired = {
   status: Status;
 };
 
-export type Form = {
-  [key: string]: OptionsRequired | OptionsNotRequired;
+export type FormStandard = {[key: string]: OptionsRequired | OptionsNotRequired;}
+
+export type Form<T extends FormStandard> = {
+  [Property in keyof T]: OptionsRequired | OptionsNotRequired;
 };
 
-export type FormRequired = {
-  [key: string]: OptionsRequired;
+export type FormRequired<T extends FormStandard> = {
+  [Property in keyof T]: OptionsRequired;
 };
 
-export type FormNotRequired = {
-  [key: string]: OptionsNotRequired;
+export type FormNotRequired<T extends FormStandard> = {
+  [Property in keyof T]: OptionsNotRequired;
 };
 
-export type ReturnHook = {
-  form: Form;
-  formValue: CleanData;
-  formValueRequired: CleanData;
-  isValidRequiredInputs: boolean;
-  isValidAllInputs: boolean;
+export type ReturnHook<T extends FormStandard> = {
+  readonly form: Form<T>;
+  formValue: Readonly<CleanData<T>>;
+  readonly formValueRequired: CleanData<T>;
+  readonly isValidRequiredInputs: boolean;
+  readonly isValidAllInputs: boolean;
   onChangeForm: (e: unknown) => void;
 };
 
@@ -54,17 +56,10 @@ export type FormData = {
   };
 };
 
-export type FormContext = {
-  form: Form;
+export type FormContext<T extends FormStandard> = {
+  form: Form<T>;
   formValue?: FormData;
   formValueRequired?: FormData;
   isValidRequiredInputs: boolean;
   isValidAllInputs: boolean;
 };
-
-export type ImmutableFormContext = Immutable<FormContext>;
-export type ImmutableOptionsRequired = Immutable<OptionsRequired>;
-
-export type ImmutableForm = Immutable<Form>;
-export type ImmutableFormRequired = Immutable<FormRequired>;
-export type ImmutableFormNotRequired = Immutable<FormNotRequired>;

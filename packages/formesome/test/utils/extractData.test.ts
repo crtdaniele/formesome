@@ -12,7 +12,7 @@ test('extractData', () => {
     },
   };
 
-  const formRequiredValue = extractData(loginForm);
+  const formRequiredValue = extractData(loginForm, false);
 
   expect(formRequiredValue).toStrictEqual({ email: '' });
 });

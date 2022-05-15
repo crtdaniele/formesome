@@ -1,12 +1,13 @@
 import {
   CleanData,
-  ImmutableForm,
+  Form,
+  FormStandard,
   OptionsNotRequired,
   OptionsRequired,
 } from '../types';
 
-function extractData(form: ImmutableForm, allInputs: boolean): CleanData {
-  let cleanData = {};
+function extractData<T extends FormStandard>(form: Form<T>, allInputs: boolean): CleanData<T> {
+  let cleanData = {} as CleanData<T>;
 
   if(allInputs) {
     Object.values(form)
