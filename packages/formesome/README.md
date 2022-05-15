@@ -27,7 +27,8 @@ To build this project run
 - ~~useFormesome: return a isValid (boolean)~~
 - ~~useFormesome: return a clean form with only the required inputs~~
 - ~~useFormesome: return a clean form with all inputs~~
-- Add the debug mode
+- ~~Add the debug mode~~
+- useFormesome: add reset method
 - useFormesome: return an object with the errors
 - Types: add new validations
 - Create the documentation (docusaurus)
