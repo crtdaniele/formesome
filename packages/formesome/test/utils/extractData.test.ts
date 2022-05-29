@@ -1,7 +1,7 @@
 import { Validations, Status } from '../../src/types';
 import { extractData } from '../../src/utils';
 
-test('extractData', () => {
+it('extractData', () => {
   const loginForm = {
     email: {
       inputName: 'email',

@@ -46,6 +46,7 @@ export type ReturnHook<T extends FormStandard> = {
   readonly isValidRequiredInputs: boolean;
   readonly isValidAllInputs: boolean;
   onChangeForm: (e: unknown) => void;
+  reset: () => void;
 };
 
 export type FormData = {
