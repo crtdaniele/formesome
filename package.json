@@ -2,9 +2,9 @@
   "name": "formesome",
   "private": false,
   "scripts": {
-    "clean": "lerna clean --yes",
-    "bootstrap": "lerna bootstrap --hoist",
-    "build": "lerna run build",
+    "clean": "npx lerna clean --yes",
+    "bootstrap": "npx lerna bootstrap --hoist",
+    "build": "npx lerna run build",
     "install": "npm run clean && npm run bootstrap && npm run build",
     "start:demo": "cd apps/demo && npm run start",
     "lint-staged": "pretty-quick --staged",

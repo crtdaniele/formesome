@@ -23,6 +23,7 @@
     "react-dom": "^17.0.2"
   },
   "devDependencies": {
+    "@testing-library/react-hooks": "^8.0.0",
     "@types/jest": "^27.4.1",
     "@types/react": "^17.0.39",
     "jest": "^27.5.1",
@@ -33,7 +34,8 @@
   "scripts": {
     "build": "rimraf dist && tsc",
     "watch": "tsc -w",
-    "test": "jest"
+    "test": "jest",
+    "test:coverage": "jest --coverage"
   },
   "sideEffects": false
 }

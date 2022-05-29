@@ -21,6 +21,7 @@ import { extractData } from '../utils/extractData';
  * @returns {isValidRequiredInputs} boolean that return if all required inputs are valid
  * @returns {isValidAllInputs} boolean that return if all inputs are valid
  * @returns {onChangeForm} the method to use in the input field
+ * @returns {reset} the method to reset the form
  */
 const useFormesome = <T extends FormStandard>(
   name: string,
@@ -112,6 +113,16 @@ const useFormesome = <T extends FormStandard>(
     [data, handleSetForm],
   );
 
+  const reset = useCallback(() => {
+    setData({
+      form: initialForm,
+      formValue: {},
+      formValueRequired: {},
+      isValidRequiredInputs: false,
+      isValidAllInputs: false,
+    });
+  }, []);
+
   /**
    * Debug method
    */
@@ -127,6 +138,7 @@ const useFormesome = <T extends FormStandard>(
     isValidRequiredInputs,
     isValidAllInputs,
     onChangeForm,
+    reset,
   };
 };
 
