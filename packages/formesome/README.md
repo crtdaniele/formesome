@@ -27,8 +27,9 @@ To build this project run
 - ~~useFormesome: return a clean form with only the required inputs~~
 - ~~useFormesome: return a clean form with all inputs~~
 - ~~Add the debug mode~~
-- useFormesome: add reset method
+- ~~useFormesome: add reset method~~
 - useFormesome: return an object with the errors
+- Add eslint
 - Types: add new validations
 - Create the documentation (docusaurus)
 - Insert augumentation for the name of the form
