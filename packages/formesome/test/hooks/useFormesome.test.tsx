@@ -31,7 +31,7 @@ describe('useFormesome', () => {
         type='text'
         data-testid='email'
         name='email'
-        defaultValue={result.current.formValue.email}
+        defaultValue={result.current.value.email}
         onChange={e => result.current.onChangeForm(e)}
       />,
     );
@@ -44,6 +44,6 @@ describe('useFormesome', () => {
       result.current.reset();
     });
 
-    expect(result.current.formValue.email).toEqual('');
+    expect(result.current.value.email).toEqual('');
   });
 });

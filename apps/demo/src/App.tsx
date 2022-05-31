@@ -1,6 +1,19 @@
-import { useFormesome, Form, Status, Validations, OptionsRequired } from 'formesome';
+import {
+  useFormesome,
+  Form,
+  Status,
+  Validations,
+  OptionsRequired,
+  OptionsNotRequired,
+} from 'formesome';
 
-type FormInput = { email: OptionsRequired } & { password: OptionsRequired };
+type FormInput = {
+  email: OptionsRequired;
+  password: OptionsRequired;
+  message: OptionsNotRequired;
+  role: OptionsNotRequired;
+  privacy1: OptionsNotRequired;
+};
 
 export const loginForm: Form<FormInput> = {
   email: {
@@ -17,14 +30,32 @@ export const loginForm: Form<FormInput> = {
     value: '',
     status: Status.TYPING,
   },
+  message: {
+    inputName: 'message',
+    required: false,
+    value: '',
+    status: Status.TYPING,
+  },
+  role: {
+    inputName: 'role',
+    required: false,
+    value: '',
+    status: Status.TYPING,
+  },
+  privacy1: {
+    inputName: 'privacy1',
+    required: false,
+    value: false,
+    status: Status.TYPING,
+  },
 };
 
 const App: React.FC = () => {
-  const { onChangeForm, formValue, formValueRequired, isValidRequiredInputs, isValidAllInputs } =
-    useFormesome('loginForm', loginForm, true);
-
-  console.log(formValue);
-  console.log(formValueRequired);
+  const { onChangeForm, value, isValidRequiredInputs, isValidAllInputs } = useFormesome(
+    'loginForm',
+    loginForm,
+    true,
+  );
 
   return (
     <div>
@@ -32,8 +63,8 @@ const App: React.FC = () => {
         <p>
           <input
             type='text'
-            name='email'
-            defaultValue={formValue.email}
+            name={loginForm.email.inputName}
+            defaultValue={value.email}
             onBlur={e => onChangeForm(e)}
           />
         </p>
@@ -41,7 +72,26 @@ const App: React.FC = () => {
           <input
             type='text'
             name='password'
-            defaultValue={formValue.password}
+            defaultValue={value.password}
+            onChange={e => onChangeForm(e)}
+          />
+        </p>
+        <p>
+          <textarea
+            name='message'
+            defaultValue={value.message}
+            onChange={e => onChangeForm(e)}
+          ></textarea>
+        </p>
+        <p>
+          <input type='radio' name='role' value='developer' onChange={e => onChangeForm(e)} />
+          <input type='radio' name='role' value='marketer' onChange={e => onChangeForm(e)} />
+        </p>
+        <p>
+          <input
+            type='checkbox'
+            name='privacy1'
+            checked={value.privacy1 === 'on' ? true : false}
             onChange={e => onChangeForm(e)}
           />
         </p>
@@ -49,11 +99,11 @@ const App: React.FC = () => {
         {}
         <h3>
           Email:
-          {formValue.email}
+          {value.email}
         </h3>
         <h3>
           Password:
-          {formValue.password}
+          {value.password}
         </h3>
         <h3>
           isValidRequiredInputs:
