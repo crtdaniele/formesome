@@ -1,7 +1,7 @@
 import { CleanData } from './cleanData';
 import { Validations } from './validations';
 
-export type InputValue = string | number;
+export type InputValue = string | number | boolean;
 
 export enum Status {
   VALID = 'VALID',
@@ -41,8 +41,8 @@ export type FormNotRequired<T extends FormStandard> = {
 };
 
 export type ReturnHook<T extends FormStandard> = {
-  readonly formValue: Readonly<CleanData<T>>;
-  readonly formValueRequired: CleanData<T>;
+  readonly value: Readonly<CleanData<T>>;
+  readonly valueRequired: CleanData<T>;
   readonly isValidRequiredInputs: boolean;
   readonly isValidAllInputs: boolean;
   onChangeForm: (e: unknown) => void;
@@ -57,8 +57,8 @@ export type FormData = {
 
 export type FormContext<T extends FormStandard> = {
   form: Form<T>;
-  formValue?: FormData;
-  formValueRequired?: FormData;
+  value?: FormData;
+  valueRequired?: FormData;
   isValidRequiredInputs: boolean;
   isValidAllInputs: boolean;
 };

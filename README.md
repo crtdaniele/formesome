@@ -28,6 +28,7 @@ To build this project run
 - ~~useFormesome: return a clean form with all inputs~~
 - ~~Add the debug mode~~
 - ~~useFormesome: add reset method~~
+- OptionsRequired/OptionsNotRequired: add type for text input
 - useFormesome: return an object with the errors
 - Add eslint
 - Types: add new validations
