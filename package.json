@@ -3,7 +3,7 @@
   "private": false,
   "scripts": {
     "clean": "npx lerna clean --yes",
-    "bootstrap": "npx lerna bootstrap --hoist",
+    "bootstrap": "npx lerna bootstrap",
     "build": "npx lerna run build",
     "install": "npm run clean && npm run bootstrap && npm run build",
     "start:demo": "cd apps/demo && npm run start"

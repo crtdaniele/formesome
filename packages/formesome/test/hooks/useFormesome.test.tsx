@@ -1,8 +1,8 @@
-import { render, fireEvent, screen, waitFor } from '@testing-library/react';
+import { render, fireEvent } from '@testing-library/react';
 import { renderHook, act } from '@testing-library/react-hooks';
 import React, { FC } from 'react';
 import { useFormesome } from '../../src/hooks';
-import { Status, Validations } from '../../src/types';
+import { Status, TypeInput, Validations } from '../../src/types';
 
 describe('useFormesome', () => {
   const WrappperContext = React.createContext('');
@@ -14,6 +14,7 @@ describe('useFormesome', () => {
   it('test the reset method', async () => {
     const loginForm = {
       email: {
+        type: TypeInput.EMAIL,
         inputName: 'email',
         required: true,
         validation: Validations.Email,
