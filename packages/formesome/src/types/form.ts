@@ -1,4 +1,5 @@
 import { CleanData } from './cleanData';
+import { TypeInput } from './type';
 import { Validations } from './validations';
 
 export type InputValue = string | number | boolean;
@@ -11,6 +12,7 @@ export enum Status {
 }
 
 export type OptionsRequired = {
+  type: TypeInput;
   inputName: string;
   required: true;
   validation: Validations | RegExp;
@@ -19,6 +21,7 @@ export type OptionsRequired = {
 };
 
 export type OptionsNotRequired = {
+  type: TypeInput;
   inputName: string;
   required: false;
   validation?: Validations;

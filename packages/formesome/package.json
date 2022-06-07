@@ -36,6 +36,5 @@
     "watch": "tsc -w",
     "test": "jest",
     "test:coverage": "jest --coverage"
-  },
-  "sideEffects": false
+  }
 }

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import {
   CleanData,
   Form,
@@ -7,8 +7,14 @@ import {
   InputValue,
   ReturnHook,
   Status,
+  TypeInput,
 } from '../types';
-import { isValidAllInputsFn, isValidRequiredInputsFn } from '../utils';
+import {
+  checkType,
+  converBooleanToString,
+  isValidAllInputsFn,
+  isValidRequiredInputsFn,
+} from '../utils';
 import { extractData } from '../utils/extractData';
 
 /**
@@ -92,17 +98,19 @@ const useFormesome = <T extends FormStandard>(
 
   const onChangeForm = useCallback(
     e => {
-      const inputValue = e.target.value;
+      const inputValue = checkType(e.target);
       const inputName = e.target.name;
-
-      console.log(e.target);
 
       if (data && data.form) {
         if (data.form[inputName].validation !== undefined) {
           const { validation } = data.form[inputName];
           const regex = new RegExp(validation || '');
+          const checkCondition =
+            data.form[inputName].type === TypeInput.CHECKBOX
+              ? converBooleanToString(inputValue) === validation
+              : regex.test(inputValue as string);
 
-          if (regex.test(inputValue)) {
+          if (checkCondition) {
             handleSetForm(data.form, inputName, inputValue, Status.VALID);
           } else {
             handleSetForm(data.form, inputName, inputValue, Status.ERROR);
