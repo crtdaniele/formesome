@@ -2,10 +2,10 @@
   "name": "formesome",
   "private": false,
   "scripts": {
-    "clean": "npx lerna clean --yes",
-    "bootstrap": "npx lerna bootstrap",
-    "build": "npx lerna run build",
-    "install": "npm run clean && npm run bootstrap && npm run build",
+    "setup": "pnpm recursive install",
+    "build": "nx run-many --target=build --all",
+    "build:formesome": "nx build formesome",
+    "test:all": "nx run-many --target=test --all",
     "start:demo": "cd apps/demo && npm run start"
   },
   "devDependencies": {
@@ -13,6 +13,7 @@
     "lerna": "^4.0.0",
     "prettier": "^2.2.1",
     "rimraf": "^3.0.2",
-    "typescript": "^4.5.5"
+    "typescript": "^4.5.5",
+    "nx": "14.1.9"
   }
 }
