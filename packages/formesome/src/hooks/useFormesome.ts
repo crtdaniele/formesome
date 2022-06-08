@@ -76,7 +76,7 @@ const useFormesome = <T extends FormStandard>(
   }, [data.form]);
 
   const handleSetForm = useCallback(
-    (form: Form<T>, inputName, inputValue: InputValue, status: Status) => {
+    (form: Form<T>, inputName: string, inputValue: InputValue, status: Status) => {
       const nextForm = {
         ...form,
         [inputName]: {
@@ -97,7 +97,7 @@ const useFormesome = <T extends FormStandard>(
   );
 
   const onChangeForm = useCallback(
-    e => {
+    (e: any) => {
       const inputValue = checkType(e.target);
       const inputName = e.target.name;
 
