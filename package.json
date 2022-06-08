@@ -3,10 +3,14 @@
   "private": false,
   "scripts": {
     "setup": "pnpm recursive install",
+    "clean": "nx run-many --target=clean --all && rimraf node_modules",
     "build": "nx run-many --target=build --all",
     "build:formesome": "nx build formesome",
     "test:all": "nx run-many --target=test --all",
     "start:demo": "cd apps/demo && npm run start"
+  },
+  "dependencies": {
+    "@changesets/cli": "^2.22.0"
   },
   "devDependencies": {
     "jest": "^27.5.1",

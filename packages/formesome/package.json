@@ -1,6 +1,6 @@
 {
   "name": "formesome",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "private": false,
   "description": "A library to manage easier your form",
   "main": "dist/index.js",
@@ -33,6 +33,7 @@
   },
   "scripts": {
     "build": "rimraf dist && tsc",
+    "clean": "rimraf node_modules && rimraf dist",
     "watch": "tsc -w",
     "test": "jest",
     "test:coverage": "jest --coverage"
