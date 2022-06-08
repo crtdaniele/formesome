@@ -29,7 +29,7 @@ To build this project run
 - ~~Add the debug mode~~
 - ~~useFormesome: add reset method~~
 - ~~OptionsRequired/OptionsNotRequired: add type for text input~~
-- Add changeset
+- ~~Add changeset~~
 - Add eslint
 - useFormesome: return an object with the errors
 - Types: add new validations
