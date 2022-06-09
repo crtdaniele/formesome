@@ -7,7 +7,8 @@
     "build": "nx run-many --target=build --all",
     "build:formesome": "nx build formesome",
     "test:all": "nx run-many --target=test --all",
-    "start:demo": "cd apps/demo && npm run start"
+    "start:demo": "cd apps/demo && npm run start",
+    "version": "npx changeset version"
   },
   "dependencies": {
     "@changesets/cli": "^2.22.0"
