@@ -2,17 +2,14 @@ import React, { FC } from 'react';
 import { render, fireEvent, renderHook, act } from '@testing-library/react';
 import { useFormesome } from '../../src/hooks';
 import { Status, TypeInput, Validations } from '../../src/types';
+import { RecoilRoot } from 'recoil';
 
 type Props = {
   children: React.ReactElement;
 };
 
 describe('useFormesome', () => {
-  const WrappperContext = React.createContext('');
-
-  const Wrapper: FC<Props> = ({ children }) => (
-    <WrappperContext.Provider value=''>{children}</WrappperContext.Provider>
-  );
+  const Wrapper: FC<Props> = ({ children }) => <RecoilRoot>{children}</RecoilRoot>;
 
   it('test the reset method', async () => {
     const loginForm = {
@@ -36,7 +33,7 @@ describe('useFormesome', () => {
         data-testid='email'
         name='email'
         defaultValue={result.current.value.email}
-        onChange={e => result.current.onChangeForm(e)}
+        onChange={e => result.current.setInput(e)}
       />,
     );
 
