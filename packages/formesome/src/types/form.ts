@@ -1,4 +1,6 @@
+import { ChangeEvent } from 'react';
 import { CleanData } from './cleanData';
+import { InputEvent } from './input';
 import { TypeInput } from './type';
 import { Validations } from './validations';
 
@@ -45,11 +47,11 @@ export type FormNotRequired<T extends FormStandard> = {
 
 export type ReturnHook<T extends FormStandard> = {
   readonly value: Readonly<CleanData<T>>;
-  readonly valueRequired: CleanData<T>;
+  readonly valueRequired: Readonly<CleanData<T>>;
   readonly isValidRequiredInputs: boolean;
   readonly isValidAllInputs: boolean;
-  onChangeForm: (e: unknown) => void;
   reset: () => void;
+  setInput: (e: InputEvent) => void;
 };
 
 export type FormData = {
