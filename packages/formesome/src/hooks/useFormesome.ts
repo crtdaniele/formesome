@@ -1,10 +1,13 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { inputAtomFamily } from '../store';
 import {
   CleanData,
   Form,
   FormContext,
   FormStandard,
   InputValue,
+  InputEvent,
   ReturnHook,
   Status,
   TypeInput,
@@ -26,7 +29,7 @@ import { extractData } from '../utils/extractData';
  * @returns {valueRequired} the object with the all required value
  * @returns {isValidRequiredInputs} boolean that return if all required inputs are valid
  * @returns {isValidAllInputs} boolean that return if all inputs are valid
- * @returns {onChangeForm} the method to use in the input field
+ * @returns {setInput} the method to use set the value of the input
  * @returns {reset} the method to reset the form
  */
 const useFormesome = <T extends FormStandard>(
@@ -34,6 +37,15 @@ const useFormesome = <T extends FormStandard>(
   initialForm: Form<T>,
   debug: boolean = false,
 ): ReturnHook<T> => {
+  /**
+   * The recoil atom to use to save momentanely the value of the input
+   */
+  const setInputForm = useSetRecoilState(inputAtomFamily);
+  const inputForm = useRecoilValue(inputAtomFamily);
+
+  /**
+   * The internal state of the form
+   */
   const [data, setData] = useState<FormContext<T>>({
     form: initialForm,
     value: {},
@@ -54,6 +66,44 @@ const useFormesome = <T extends FormStandard>(
       isValidAllInputs: false,
     });
   }, [initialForm, name]);
+
+  /**
+   * The core of the validations of the input
+   */
+  useEffect(() => {
+    //* * Get the name and value from Recoil state
+    const inputValue = inputForm.value;
+    const inputName = inputForm.name;
+
+    if (data && data.form && inputForm.value !== '') {
+      if (data.form[inputName].validation !== undefined) {
+        const { validation } = data.form[inputName];
+        const regex = new RegExp(validation || '');
+
+        const checkCondition =
+          data.form[inputName].type === TypeInput.CHECKBOX
+            ? converBooleanToString(inputValue) === validation
+            : regex.test(inputValue as string);
+
+        if (checkCondition) {
+          handleSetForm(inputName, inputValue, Status.VALID);
+        } else {
+          handleSetForm(inputName, inputValue, Status.ERROR);
+        }
+      } else {
+        handleSetForm(inputName, inputValue, Status.VALID);
+      }
+    }
+  }, [inputForm]);
+
+  /**
+   * Debug method
+   */
+  useEffect(() => {
+    if (debug) {
+      console.log(data.form);
+    }
+  }, [debug, data.form]);
 
   const isValidRequiredInputs = useMemo((): boolean => {
     const formInputs = data.form;
@@ -76,11 +126,11 @@ const useFormesome = <T extends FormStandard>(
   }, [data.form]);
 
   const handleSetForm = useCallback(
-    (form: Form<T>, inputName: string, inputValue: InputValue, status: Status) => {
+    (inputName: string, inputValue: InputValue, status: Status) => {
       const nextForm = {
-        ...form,
+        ...data.form,
         [inputName]: {
-          ...form[inputName],
+          ...data.form[inputName],
           value: inputValue,
           status: status,
         },
@@ -93,35 +143,17 @@ const useFormesome = <T extends FormStandard>(
         isValidAllInputs: data.isValidAllInputs || false,
       });
     },
-    [],
+    [data.form],
   );
 
-  const onChangeForm = useCallback(
-    (e: any) => {
-      const inputValue = checkType(e.target);
-      const inputName = e.target.name;
-
-      if (data && data.form) {
-        if (data.form[inputName].validation !== undefined) {
-          const { validation } = data.form[inputName];
-          const regex = new RegExp(validation || '');
-          const checkCondition =
-            data.form[inputName].type === TypeInput.CHECKBOX
-              ? converBooleanToString(inputValue) === validation
-              : regex.test(inputValue as string);
-
-          if (checkCondition) {
-            handleSetForm(data.form, inputName, inputValue, Status.VALID);
-          } else {
-            handleSetForm(data.form, inputName, inputValue, Status.ERROR);
-          }
-        } else {
-          handleSetForm(data.form, inputName, inputValue, Status.VALID);
-        }
-      }
-    },
-    [data, handleSetForm],
-  );
+  const setInput = useCallback((e: InputEvent) => {
+    const name = e.target.name;
+    const type = data.form[name].type;
+    setInputForm({
+      name,
+      value: checkType(e, type),
+    });
+  }, []);
 
   const reset = useCallback(() => {
     setData({
@@ -133,21 +165,12 @@ const useFormesome = <T extends FormStandard>(
     });
   }, []);
 
-  /**
-   * Debug method
-   */
-  useEffect(() => {
-    if (debug) {
-      console.log(data.form);
-    }
-  }, [debug, data.form]);
-
   return {
     value: value,
     valueRequired: valueRequired,
     isValidRequiredInputs,
     isValidAllInputs,
-    onChangeForm,
+    setInput,
     reset,
   };
 };
