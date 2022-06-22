@@ -8,6 +8,7 @@
     "build:formesome": "nx build formesome",
     "test:all": "nx run-many --target=test --all",
     "start:demo": "cd apps/demo && npm run start",
+    "start:docs": "cd apps/docs && npm run start",
     "version": "npx changeset version"
   },
   "dependencies": {
