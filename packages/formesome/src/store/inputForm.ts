@@ -1,8 +1,10 @@
 import { atom } from 'recoil';
+import { InputValue, Status } from '../types';
 
 type State = {
   name: string;
-  value: string | boolean;
+  value: InputValue;
+  status?: Status | undefined;
 };
 
 /**
@@ -13,5 +15,6 @@ export const inputAtomFamily = atom<State>({
   default: {
     name: '',
     value: '',
+    status: undefined,
   },
 });
