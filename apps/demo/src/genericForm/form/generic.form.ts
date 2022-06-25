@@ -28,7 +28,7 @@ export const genericForm: Form<FormInput> = {
     type: TypeInput.PASSWORD,
     inputName: 'password',
     required: true,
-    validation: Validations.NotEmpty,
+    validation: Validations.Min6Max9Digits,
     value: '',
     status: Status.TYPING,
   },

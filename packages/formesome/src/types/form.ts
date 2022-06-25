@@ -1,4 +1,3 @@
-import { ChangeEvent } from 'react';
 import { CleanData } from './cleanData';
 import { InputEvent } from './input';
 import { TypeInput } from './type';
@@ -52,6 +51,7 @@ export type ReturnHook<T extends FormStandard> = {
   readonly isValidAllInputs: boolean;
   reset: () => void;
   setInput: (e: InputEvent) => void;
+  setCustomInput: (name: string, value: InputValue, status: Status) => void;
 };
 
 export type FormData = {

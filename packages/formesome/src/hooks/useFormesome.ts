@@ -73,7 +73,12 @@ const useFormesome = <T extends FormStandard>(
   useEffect(() => {
     //* * Get the name and value from Recoil state
     const inputValue = inputForm.value;
+    // TODO: verify if inputName exist in the current form
     const inputName = inputForm.name;
+
+    if (inputForm.status) {
+      return handleSetForm(inputName, inputValue, inputForm.status);
+    }
 
     if (data && data.form && inputForm.value !== '') {
       if (data.form[inputName].validation !== undefined) {
@@ -126,7 +131,7 @@ const useFormesome = <T extends FormStandard>(
   }, [data.form]);
 
   const handleSetForm = useCallback(
-    (inputName: string, inputValue: InputValue, status: Status) => {
+    (inputName: keyof Form<T>, inputValue: InputValue, status: Status) => {
       const nextForm = {
         ...data.form,
         [inputName]: {
@@ -155,6 +160,14 @@ const useFormesome = <T extends FormStandard>(
     });
   }, []);
 
+  const setCustomInput = useCallback((name: string, value: InputValue, status: Status) => {
+    setInputForm({
+      name,
+      value,
+      status,
+    });
+  }, []);
+
   const reset = useCallback(() => {
     setData({
       form: initialForm,
@@ -171,6 +184,7 @@ const useFormesome = <T extends FormStandard>(
     isValidRequiredInputs,
     isValidAllInputs,
     setInput,
+    setCustomInput,
     reset,
   };
 };

@@ -1,13 +1,17 @@
-import { useFormesome } from 'formesome';
+import { Status, useFormesome } from 'formesome';
 import { EmailInputWithMemo } from '../components';
 import { genericForm } from '../form';
 
 const GenericForm: React.FC = () => {
-  const { setInput, value, isValidRequiredInputs, isValidAllInputs } = useFormesome(
+  const { setInput, setCustomInput, value, isValidRequiredInputs, isValidAllInputs } = useFormesome(
     'genericForm',
     genericForm,
     true,
   );
+
+  const onChange = () => {
+    setCustomInput(genericForm.password.inputName, '123456789', Status.VALID);
+  };
 
   return (
     <form>
@@ -17,7 +21,7 @@ const GenericForm: React.FC = () => {
           type={genericForm.password.type}
           name={genericForm.password.inputName}
           defaultValue={value.password}
-          onChange={e => setInput(e)}
+          onChange={onChange}
         />
       </p>
       <p>
