@@ -30,6 +30,9 @@ To build this project run
 - ~~useFormesome: add reset method~~
 - ~~OptionsRequired/OptionsNotRequired: add type for text input~~
 - ~~Add changeset~~
+- Add documentation in the file
+- Clean docs and add the blank page
+- Add test for the new API
 - Add eslint
 - useFormesome: return an object with the errors
 - Types: add new validations
