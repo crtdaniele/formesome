@@ -9,7 +9,7 @@
     "test:all": "nx run-many --target=test --all",
     "start:demo": "cd apps/demo && npm run start",
     "start:docs": "cd apps/docs && npm run start",
-    "version": "npx changeset version"
+    "version": "npx changeset"
   },
   "dependencies": {
     "@changesets/cli": "^2.22.0"
