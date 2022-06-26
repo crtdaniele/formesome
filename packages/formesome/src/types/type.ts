@@ -4,4 +4,5 @@ export enum TypeInput {
   PASSWORD = 'password',
   RADIO = 'radio',
   CHECKBOX = 'checkbox',
+  SELECT = 'select',
 }
