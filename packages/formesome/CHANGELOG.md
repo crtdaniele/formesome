@@ -1,5 +1,11 @@
 # Change Log
 
+## 0.4.0
+
+### Minor Changes
+
+- 59f8489: new version for new api
+
 ## 0.3.0
 
 ### Minor Changes

@@ -1,5 +1,16 @@
 # Change Log
 
+## 0.4.0
+
+### Minor Changes
+
+- 59f8489: new version for new api
+
+### Patch Changes
+
+- Updated dependencies [59f8489]
+  - formesome@0.4.0
+
 ## 0.3.0
 
 ### Minor Changes
