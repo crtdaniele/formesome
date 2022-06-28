@@ -1,3 +1,4 @@
+import React from 'react';
 import { Status, useFormesome } from 'formesome';
 import { EmailInputWithMemo } from '../components';
 import { genericForm } from '../form';
@@ -28,19 +29,19 @@ const GenericForm: React.FC = () => {
         <textarea
           name={genericForm.message.inputName}
           defaultValue={value.message}
-          onChange={e => setInput(e)}
-        ></textarea>
+          onChange={(e) => setInput(e)}
+        />
       </p>
       <p>
-        <input type='radio' name='role' value='developer' onChange={e => setInput(e)} />
-        <input type='radio' name='role' value='marketer' onChange={e => setInput(e)} />
+        <input type="radio" name="role" value="developer" onChange={(e) => setInput(e)} />
+        <input type="radio" name="role" value="marketer" onChange={(e) => setInput(e)} />
       </p>
       <p>
         <input
-          type='checkbox'
-          name='privacy1'
+          type="checkbox"
+          name="privacy1"
           checked={value.privacy1 as never}
-          onChange={e => setInput(e)}
+          onChange={(e) => setInput(e)}
         />
       </p>
       <hr />

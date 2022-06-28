@@ -54,6 +54,27 @@ const useFormesome = <T extends FormStandard>(
     isValidAllInputs: false,
   });
 
+  const handleSetForm = useCallback(
+    (inputName: keyof Form<T>, inputValue: InputValue, status: Status) => {
+      const nextForm = {
+        ...data.form,
+        [inputName]: {
+          ...data.form[inputName],
+          value: inputValue,
+          status,
+        },
+      };
+      setData({
+        form: nextForm,
+        value: data.value,
+        valueRequired: data.valueRequired,
+        isValidRequiredInputs: data.isValidAllInputs || false,
+        isValidAllInputs: data.isValidAllInputs || false,
+      });
+    },
+    [data.form],
+  );
+
   /**
    * Set the initial form in data variable
    */
@@ -85,6 +106,7 @@ const useFormesome = <T extends FormStandard>(
         const { validation } = data.form[inputName];
         const regex = new RegExp(validation || '');
 
+        // eslint-disable-next-line operator-linebreak
         const checkCondition =
           data.form[inputName].type === TypeInput.CHECKBOX
             ? converBooleanToString(inputValue) === validation
@@ -99,6 +121,8 @@ const useFormesome = <T extends FormStandard>(
         handleSetForm(inputName, inputValue, Status.VALID);
       }
     }
+
+    return () => {};
   }, [inputForm]);
 
   /**
@@ -106,6 +130,7 @@ const useFormesome = <T extends FormStandard>(
    */
   useEffect(() => {
     if (debug) {
+      // eslint-disable-next-line no-console
       console.log(data.form);
     }
   }, [debug, data.form]);
@@ -130,43 +155,25 @@ const useFormesome = <T extends FormStandard>(
     return formInputs ? extractData<T>(formInputs, false) : ({} as CleanData<T>);
   }, [data.form]);
 
-  const handleSetForm = useCallback(
-    (inputName: keyof Form<T>, inputValue: InputValue, status: Status) => {
-      const nextForm = {
-        ...data.form,
-        [inputName]: {
-          ...data.form[inputName],
-          value: inputValue,
-          status: status,
-        },
-      };
-      setData({
-        form: nextForm,
-        value: data.value,
-        valueRequired: data.valueRequired,
-        isValidRequiredInputs: data.isValidAllInputs || false,
-        isValidAllInputs: data.isValidAllInputs || false,
-      });
-    },
-    [data.form],
-  );
-
   const setInput = useCallback((e: InputEvent) => {
-    const name = e.target.name;
-    const type = data.form[name].type;
+    const { name: nameInput } = e.target;
+    const { type } = data.form[nameInput];
     setInputForm({
-      name,
+      name: nameInput,
       value: checkType(e, type),
     });
   }, []);
 
-  const setCustomInput = useCallback((name: string, value: InputValue, status: Status) => {
-    setInputForm({
-      name,
-      value,
-      status,
-    });
-  }, []);
+  const setCustomInput = useCallback(
+    (nameInputCustom: string, valueInputCustom: InputValue, status: Status) => {
+      setInputForm({
+        name: nameInputCustom,
+        value: valueInputCustom,
+        status,
+      });
+    },
+    [],
+  );
 
   const reset = useCallback(() => {
     setData({
@@ -179,8 +186,8 @@ const useFormesome = <T extends FormStandard>(
   }, []);
 
   return {
-    value: value,
-    valueRequired: valueRequired,
+    value,
+    valueRequired,
     isValidRequiredInputs,
     isValidAllInputs,
     setInput,

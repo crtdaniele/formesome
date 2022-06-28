@@ -9,7 +9,8 @@
     "test:all": "nx run-many --target=test --all",
     "start:demo": "cd apps/demo && npm run start",
     "start:docs": "cd apps/docs && npm run start",
-    "version": "npx changeset version"
+    "version": "npx changeset version",
+    "lint": "eslint packages/**/src/*.{js,jsx,ts,tsx,json}"
   },
   "dependencies": {
     "@changesets/cli": "^2.22.0"
@@ -18,6 +19,14 @@
     "prettier": "^2.2.1",
     "rimraf": "^3.0.2",
     "typescript": "^4.7.3",
-    "nx": "14.1.9"
+    "nx": "14.1.9",
+    "eslint": "^8.18.0",
+    "eslint-plugin-react": "^7.28.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-plugin-import": "^2.25.3",
+    "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-react-hooks": "^4.3.0",
+    "@typescript-eslint/eslint-plugin": "^5.29.0",
+    "@typescript-eslint/parser": "^5.29.0"
   }
 }

@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
+import { RecoilRoot } from 'recoil';
 import { render, fireEvent, renderHook, act } from '@testing-library/react';
 import { useFormesome } from '../../src/hooks';
 import { Status, TypeInput, Validations } from '../../src/types';
-import { RecoilRoot } from 'recoil';
 
 type Props = {
   children: React.ReactElement;
@@ -29,11 +29,11 @@ describe('useFormesome', () => {
 
     const { getByTestId } = render(
       <input
-        type='text'
-        data-testid='email'
-        name='email'
+        type="text"
+        data-testid="email"
+        name="email"
         defaultValue={result.current.value.email}
-        onChange={e => result.current.setInput(e)}
+        onChange={(e) => result.current.setInput(e)}
       />,
     );
 
