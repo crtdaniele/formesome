@@ -29,8 +29,9 @@ import { extractData } from '../utils/extractData';
  * @returns {valueRequired} the object with the all required value
  * @returns {isValidRequiredInputs} boolean that return if all required inputs are valid
  * @returns {isValidAllInputs} boolean that return if all inputs are valid
- * @returns {setInput} the method to use set the value of the input
  * @returns {reset} the method to reset the form
+ * @returns {setInput} the method to use set the value of the input
+ * @returns {setCustomInput} the custom method to set a value for an input
  */
 const useFormesome = <T extends FormStandard>(
   name: string,
@@ -135,46 +136,72 @@ const useFormesome = <T extends FormStandard>(
     }
   }, [debug, data.form]);
 
+  /**
+   * If all required inputs are valid
+   * @return boolean
+   */
   const isValidRequiredInputs = useMemo((): boolean => {
     const formInputs = data.form;
     return formInputs ? isValidRequiredInputsFn<T>(formInputs) : false;
   }, [data.form]);
 
+  /**
+   * If all inputs are valid
+   * @return boolean
+   */
   const isValidAllInputs = useMemo((): boolean => {
     const formInputs = data.form;
     return formInputs ? isValidAllInputsFn<T>(formInputs) : false;
   }, [data.form]);
 
+  /**
+   * An object with the inputs and the value for all inputs
+   * @return object
+   */
   const value = useMemo(() => {
     const formInputs = data.form;
     return formInputs ? extractData<T>(formInputs, true) : ({} as CleanData<T>);
   }, [data.form]);
 
+  /**
+   * An object with the required inputs and the value for all inputs
+   * @return object
+   */
   const valueRequired = useMemo(() => {
     const formInputs = data.form;
     return formInputs ? extractData<T>(formInputs, false) : ({} as CleanData<T>);
   }, [data.form]);
 
+  /**
+   * The API that use to set a value for the input with the default validation of the library
+   * @param e the InputEvent for onChange or onBlur
+   */
   const setInput = useCallback((e: InputEvent) => {
-    const { name: nameInput } = e.target;
-    const { type } = data.form[nameInput];
+    const name = e.target.name;
+    const type = data.form[name].type;
     setInputForm({
-      name: nameInput,
+      name,
       value: checkType(e, type),
     });
   }, []);
 
-  const setCustomInput = useCallback(
-    (nameInputCustom: string, valueInputCustom: InputValue, status: Status) => {
-      setInputForm({
-        name: nameInputCustom,
-        value: valueInputCustom,
-        status,
-      });
-    },
-    [],
-  );
+  /**
+   * The API that use to add a custom validate for the specific input
+   * @param name the name of the input
+   * @param value the new value for the input
+   * @param status the status of the input, use Status from library
+   */
+  const setCustomInput = useCallback((name: string, value: InputValue, status: Status) => {
+    setInputForm({
+      name,
+      value,
+      status,
+    });
+  }, []);
 
+  /**
+   * The API that use to reset all data in the form
+   */
   const reset = useCallback(() => {
     setData({
       form: initialForm,
