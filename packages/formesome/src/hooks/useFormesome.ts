@@ -55,6 +55,27 @@ const useFormesome = <T extends FormStandard>(
     isValidAllInputs: false,
   });
 
+  const handleSetForm = useCallback(
+    (inputName: keyof Form<T>, inputValue: InputValue, status: Status) => {
+      const nextForm = {
+        ...data.form,
+        [inputName]: {
+          ...data.form[inputName],
+          value: inputValue,
+          status,
+        },
+      };
+      setData({
+        form: nextForm,
+        value: data.value,
+        valueRequired: data.valueRequired,
+        isValidRequiredInputs: data.isValidAllInputs || false,
+        isValidAllInputs: data.isValidAllInputs || false,
+      });
+    },
+    [data.form],
+  );
+
   /**
    * Set the initial form in data variable
    */
@@ -86,6 +107,7 @@ const useFormesome = <T extends FormStandard>(
         const { validation } = data.form[inputName];
         const regex = new RegExp(validation || '');
 
+        // eslint-disable-next-line operator-linebreak
         const checkCondition =
           data.form[inputName].type === TypeInput.CHECKBOX
             ? converBooleanToString(inputValue) === validation
@@ -100,6 +122,8 @@ const useFormesome = <T extends FormStandard>(
         handleSetForm(inputName, inputValue, Status.VALID);
       }
     }
+
+    return () => {};
   }, [inputForm]);
 
   /**
@@ -107,6 +131,7 @@ const useFormesome = <T extends FormStandard>(
    */
   useEffect(() => {
     if (debug) {
+      // eslint-disable-next-line no-console
       console.log(data.form);
     }
   }, [debug, data.form]);
@@ -146,27 +171,6 @@ const useFormesome = <T extends FormStandard>(
     const formInputs = data.form;
     return formInputs ? extractData<T>(formInputs, false) : ({} as CleanData<T>);
   }, [data.form]);
-
-  const handleSetForm = useCallback(
-    (inputName: keyof Form<T>, inputValue: InputValue, status: Status) => {
-      const nextForm = {
-        ...data.form,
-        [inputName]: {
-          ...data.form[inputName],
-          value: inputValue,
-          status: status,
-        },
-      };
-      setData({
-        form: nextForm,
-        value: data.value,
-        valueRequired: data.valueRequired,
-        isValidRequiredInputs: data.isValidAllInputs || false,
-        isValidAllInputs: data.isValidAllInputs || false,
-      });
-    },
-    [data.form],
-  );
 
   /**
    * The API that use to set a value for the input with the default validation of the library
@@ -209,8 +213,8 @@ const useFormesome = <T extends FormStandard>(
   }, []);
 
   return {
-    value: value,
-    valueRequired: valueRequired,
+    value,
+    valueRequired,
     isValidRequiredInputs,
     isValidAllInputs,
     setInput,

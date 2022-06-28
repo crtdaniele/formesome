@@ -1,5 +1,4 @@
-/* eslint-disable prettier/prettier */
-/* eslint-disable no-useless-escape */
+/* eslint-disable no-shadow */
 export enum Validations {
   // blahblah
   NotEmpty = '^(?!s*$).+',
