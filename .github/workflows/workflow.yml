@@ -20,17 +20,11 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: Install
-        run: npm install -g npm
-
       - name: Install Nx
         run: npm install -g nx
 
       - name: Install PNPM
         run: npm install -g pnpm
-
-      - name: Clean all
-        run: npm run clean
 
       - name: Setup repo
         run: npm run setup
