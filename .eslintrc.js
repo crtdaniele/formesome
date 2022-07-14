@@ -21,5 +21,7 @@ module.exports = {
     'import/no-unresolved': 'off',
     'import/prefer-default-export': 'off',
     'object-curly-newline': 'off',
+    'operator-linebreak': 'off',
+    'react/jsx-one-expression-per-line': 'off',
   },
 };

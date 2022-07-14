@@ -11,7 +11,7 @@ type Props = {
 describe('useFormesome', () => {
   const Wrapper: FC<Props> = ({ children }) => <RecoilRoot>{children}</RecoilRoot>;
 
-  it('test the reset method', async () => {
+  it('should return a clean object after reset', async () => {
     const loginForm = {
       email: {
         type: TypeInput.EMAIL,
@@ -46,5 +46,80 @@ describe('useFormesome', () => {
     });
 
     expect(result.current.value.email).toEqual('');
+  });
+
+  it('should return an error for the email input', async () => {
+    const loginForm = {
+      email: {
+        type: TypeInput.EMAIL,
+        inputName: 'email',
+        required: true,
+        validation: Validations.Email,
+        value: '',
+        status: Status.TYPING,
+      },
+    };
+
+    const { result } = renderHook(() => useFormesome('loginForm', loginForm), {
+      wrapper: Wrapper,
+    });
+
+    const { getByTestId } = render(
+      <input
+        type="text"
+        data-testid="email"
+        name="email"
+        defaultValue={result.current.value.email}
+        onChange={(e) => result.current.setInput(e)}
+      />,
+    );
+
+    act(() => {
+      const getInput = getByTestId('email');
+      fireEvent.change(getInput, {
+        target: { value: 'crtdaniele' },
+      });
+    });
+
+    expect(result.current.errors.email).toEqual(Status.ERROR);
+  });
+
+  it('should return an error for the email input', async () => {
+    const loginForm = {
+      email: {
+        type: TypeInput.EMAIL,
+        inputName: 'email',
+        required: true,
+        validation: Validations.Email,
+        value: '',
+        status: Status.TYPING,
+      },
+    };
+
+    const { result } = renderHook(() => useFormesome('loginForm', loginForm), {
+      wrapper: Wrapper,
+    });
+
+    const { getByTestId } = render(
+      <input
+        type="text"
+        data-testid="email"
+        name="email"
+        defaultValue={result.current.value.email}
+        onChange={(e) => result.current.setInput(e)}
+      />,
+    );
+
+    act(() => {
+      const getInput = getByTestId('email');
+      fireEvent.change(getInput, {
+        target: { value: 'crtdaniele' },
+      });
+      fireEvent.change(getInput, {
+        target: { value: '' },
+      });
+    });
+
+    expect(result.current.errors.email).toEqual(Status.EMPTY);
   });
 });
