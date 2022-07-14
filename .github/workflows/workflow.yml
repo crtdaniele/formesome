@@ -1,0 +1,9 @@
+steps:
+  - uses: actions/checkout@master
+  - uses: codecov/codecov-action@v3
+    with:
+      files: ./packages/formesome/coverage/clover.xml
+      flags: unittests
+      name: codecov-formesome
+      fail_ci_if_error: true
+      verbose: true
