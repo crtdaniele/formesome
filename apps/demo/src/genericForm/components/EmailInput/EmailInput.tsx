@@ -4,7 +4,6 @@ import { genericForm } from '../../form';
 
 type Props = {
   value: string | number;
-  // eslint-disable-next-line no-unused-vars
   setInput: (e: InputEvent) => void;
 };
 

@@ -37,7 +37,7 @@ import { extractData, extractErrors } from '../utils/extractData';
 const useFormesome = <T extends FormStandard>(
   name: string,
   initialForm: Form<T>,
-  debug: boolean = false,
+  debug = false,
 ): ReturnHook<T> => {
   /**
    * The recoil atom to use to save momentanely the value of the input

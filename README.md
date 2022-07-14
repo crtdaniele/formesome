@@ -32,8 +32,8 @@ To build this project run
 - ~~Add changeset~~
 - ~~Add documentation in the file~~
 - ~~Add eslint~~
+- ~~useFormesome: return an object with the errors~~
 - Clean docs and add the blank page
-- useFormesome: return an object with the errors
 - Add test for the new API
 - Types: add new validations
 - Create the documentation (docusaurus)

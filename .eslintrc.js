@@ -4,7 +4,7 @@ module.exports = {
     es2021: true,
     jest: true,
   },
-  extends: ['plugin:react/recommended', 'airbnb'],
+  extends: ['plugin:react/recommended', 'airbnb', 'plugin:@typescript-eslint/recommended'],
   parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaFeatures: {
@@ -23,5 +23,6 @@ module.exports = {
     'object-curly-newline': 'off',
     'operator-linebreak': 'off',
     'react/jsx-one-expression-per-line': 'off',
+    'no-shadow': 'off',
   },
 };

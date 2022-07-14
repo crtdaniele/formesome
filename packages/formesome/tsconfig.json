@@ -3,8 +3,9 @@
   "compilerOptions": {
     "target": "ESNext",
     "module": "CommonJS",
-    "outDir": "./dist"
+    "outDir": "./dist",
+    "types": ["jest"]
   },
-  "include": ["src"],
+  "include": ["src", "test"],
   "exclude": ["./node_modules", "./dist"]
 }
