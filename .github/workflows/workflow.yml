@@ -20,6 +20,9 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
+      - name: Install Nx
+        run: npm i nx -g
+
       - name: Clean all
         run: npm run clean
 
