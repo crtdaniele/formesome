@@ -31,10 +31,10 @@ To build this project run
 - ~~OptionsRequired/OptionsNotRequired: add type for text input~~
 - ~~Add changeset~~
 - ~~Add documentation in the file~~
-- Add eslint
+- ~~Add eslint~~
 - Clean docs and add the blank page
-- Add test for the new API
 - useFormesome: return an object with the errors
+- Add test for the new API
 - Types: add new validations
 - Create the documentation (docusaurus)
 - Insert augumentation for the name of the form

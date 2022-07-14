@@ -49,8 +49,11 @@ export type ReturnHook<T extends FormStandard> = {
   readonly valueRequired: Readonly<CleanData<T>>;
   readonly isValidRequiredInputs: boolean;
   readonly isValidAllInputs: boolean;
+  readonly errors: Readonly<CleanData<T>>;
   reset: () => void;
+  // eslint-disable-next-line no-unused-vars
   setInput: (e: InputEvent) => void;
+  // eslint-disable-next-line no-unused-vars
   setCustomInput: (name: string, value: InputValue, status: Status) => void;
 };
 

@@ -18,7 +18,7 @@ import {
   isValidAllInputsFn,
   isValidRequiredInputsFn,
 } from '../utils';
-import { extractData } from '../utils/extractData';
+import { extractData, extractErrors } from '../utils/extractData';
 
 /**
  * Hook to create a new form and validate automatically your inputs
@@ -29,6 +29,7 @@ import { extractData } from '../utils/extractData';
  * @returns {valueRequired} the object with the all required value
  * @returns {isValidRequiredInputs} boolean that return if all required inputs are valid
  * @returns {isValidAllInputs} boolean that return if all inputs are valid
+ * @returns {errors} the object with the inputs errors
  * @returns {reset} the method to reset the form
  * @returns {setInput} the method to use set the value of the input
  * @returns {setCustomInput} the custom method to set a value for an input
@@ -98,32 +99,40 @@ const useFormesome = <T extends FormStandard>(
     // TODO: verify if inputName exist in the current form
     const inputName = inputForm.name;
 
-    if (inputForm.status) {
-      return handleSetForm(inputName, inputValue, inputForm.status);
-    }
+    if (data && data.form) {
+      if (inputForm.status) {
+        return handleSetForm(inputName, inputValue, inputForm.status);
+      }
 
-    if (data && data.form && inputForm.value !== '') {
-      if (data.form[inputName].validation !== undefined) {
-        const { validation } = data.form[inputName];
-        const regex = new RegExp(validation || '');
+      if (inputForm.value === '') {
+        return handleSetForm(inputName, inputValue, Status.EMPTY);
+      }
 
-        // eslint-disable-next-line operator-linebreak
-        const checkCondition =
-          data.form[inputName].type === TypeInput.CHECKBOX
-            ? converBooleanToString(inputValue) === validation
-            : regex.test(inputValue as string);
+      if (inputForm.value !== '') {
+        if (data.form[inputName].validation !== undefined) {
+          const { validation } = data.form[inputName];
+          const regex = new RegExp(validation || '');
 
-        if (checkCondition) {
-          handleSetForm(inputName, inputValue, Status.VALID);
+          // eslint-disable-next-line operator-linebreak
+          const checkCondition =
+            data.form[inputName].type === TypeInput.CHECKBOX
+              ? converBooleanToString(inputValue) === validation
+              : regex.test(inputValue as string);
+
+          if (checkCondition) {
+            return handleSetForm(inputName, inputValue, Status.VALID);
+          }
+
+          if (!checkCondition) {
+            return handleSetForm(inputName, inputValue, Status.ERROR);
+          }
         } else {
-          handleSetForm(inputName, inputValue, Status.ERROR);
+          return handleSetForm(inputName, inputValue, Status.VALID);
         }
-      } else {
-        handleSetForm(inputName, inputValue, Status.VALID);
       }
     }
 
-    return () => {};
+    return undefined;
   }, [inputForm]);
 
   /**
@@ -173,14 +182,23 @@ const useFormesome = <T extends FormStandard>(
   }, [data.form]);
 
   /**
+   * An object with the errors of the inputs
+   * @return object
+   */
+  const errors = useMemo(() => {
+    const formInputs = data.form;
+    return formInputs ? extractErrors<T>(formInputs) : ({} as CleanData<T>);
+  }, [data.form]);
+
+  /**
    * The API that use to set a value for the input with the default validation of the library
    * @param e the InputEvent for onChange or onBlur
    */
   const setInput = useCallback((e: InputEvent) => {
-    const name = e.target.name;
-    const type = data.form[name].type;
+    const { name: nameInput } = e.target;
+    const { type } = data.form[nameInput];
     setInputForm({
-      name,
+      name: nameInput,
       value: checkType(e, type),
     });
   }, []);
@@ -191,13 +209,16 @@ const useFormesome = <T extends FormStandard>(
    * @param value the new value for the input
    * @param status the status of the input, use Status from library
    */
-  const setCustomInput = useCallback((name: string, value: InputValue, status: Status) => {
-    setInputForm({
-      name,
-      value,
-      status,
-    });
-  }, []);
+  const setCustomInput = useCallback(
+    (nameCustomInput: string, valueCustomInput: InputValue, status: Status) => {
+      setInputForm({
+        name: nameCustomInput,
+        value: valueCustomInput,
+        status,
+      });
+    },
+    [],
+  );
 
   /**
    * The API that use to reset all data in the form
@@ -217,6 +238,7 @@ const useFormesome = <T extends FormStandard>(
     valueRequired,
     isValidRequiredInputs,
     isValidAllInputs,
+    errors,
     setInput,
     setCustomInput,
     reset,
