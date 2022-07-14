@@ -32,7 +32,7 @@ jobs:
       - name: Build repo
         run: npm run build
 
-      - name: Build repo
+      - name: Run test coverage
         run: cd packages/formesome && npm run test:coverage
 
       - name: Codecov
