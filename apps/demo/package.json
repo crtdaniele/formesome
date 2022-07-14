@@ -1,10 +1,10 @@
 {
   "name": "demo",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "private": true,
   "module": "build/index.js",
   "dependencies": {
-    "formesome": "^0.4.0",
+    "formesome": "^0.5.0",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
     "react-scripts": "5.0.0",
