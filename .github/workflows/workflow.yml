@@ -1,5 +1,7 @@
 name: Codecov
 
+on: [workflow_dispatch]
+
 jobs:
   codecov:
     runs-on: ubuntu-latest
